@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="page">
+        <div class="_container">
+            <h1>YOUR CHALLENGE:
+                INCREASE THE ENVIRONMENTAL
+                AND SOCIETAL SCORES
+                THROUGHOUT THE DESIGN JOURNEY
+            </h1>
+            <div class="questions"  id="first-q">
+                <div class="questions__item">
+                    <div data-question="false" class="question">USE PETROLEUM-BASED VIRGIN PLASTIC</div>
+                    <div class="question-answer">
+                        Petroleum based virgin plastic depletes non-renewable resources.
+                        Try again!
+                    </div>
+                </div>
+                <div class="questions__item">
+                    <div data-question="true" id="second-q--button" onclick="showNextStep('second-q--button')" class="question">USE RECYCLED PLASTIC</div>
+                    <div class="question-answer">
+                        <span>good choice</span>
+                        Using recycled plastic does not deplete non-renewable resources and enables an effective end of
+                        life reusage of plastic.
+                    </div>
+                </div>
+            </div>
+            <div class="questions" id="second-q">
+                <div class="questions__item">
+                    <div data-question="false" class="question">USE PETROLEUM-BASED VIRGIN PLASTIC</div>
+                    <div class="question-answer">
+                        Petroleum based virgin plastic depletes non-renewable resources.
+                        Try again!
+                    </div>
+                </div>
+                <div class="questions__item">
+                    <div data-question="true" id="third-q--button" onclick="showNextStep('third-q--button')" class="question">USE RECYCLED PLASTIC</div>
+                    <div class="question-answer">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet debitis earum id, in natus
+                        obcaecati odit pariatur placeat quam repudiandae sit, vel! Beatae hic ipsum laborum, placeat
+                        quibusdam quo.
+                    </div>
+                </div>
+            </div>
+            <div class="questions" id="third-q">
+                <div data-question="true" id="fourth-q--button" onclick="showNextStep('fourth-q--button')" class="question">USE RECYCLED PLASTIC</div>
+                <div class="questions__item">
+                    <div data-question="false" class="question">USE PETROLEUM-BASED VIRGIN PLASTIC</div>
+                    <div class="question-answer">
+                        Petroleum based virgin plastic depletes non-renewable resources.
+                        Try again!
+                    </div>
+                </div>
+            </div>
+            <div class="questions" id="fourth-q">
+                <div class="questions__item">
+                    <div data-question="false" class="question">USE PETROLEUM-BASED VIRGIN PLASTIC</div>
+                    <div class="question-answer">
+                        Petroleum based virgin plastic depletes non-renewable resources.
+                        Try again!
+                    </div>
+                </div>
+                <div class="questions__item">
+                    <div data-question="true" id="final-q--button" onclick="showNextStep('final-q--button')" class="question">USE RECYCLED PLASTIC</div>
+                    <div class="question-answer">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad amet debitis earum id, in natus
+                        obcaecati odit pariatur placeat quam repudiandae sit, vel! Beatae hic ipsum laborum, placeat
+                        quibusdam quo.
+                    </div>
+                </div>
+            </div>
+            <div class="start-over-btn">Play again</div>
+        </div>
+    </div>
+</div>
+<script src="main.js"></script>
+</body>
+</html>
