@@ -18,7 +18,9 @@ body {
     overflow: hidden;
 
   }
+
 }
+
 
 .wrapper {
   width: 100%;
@@ -30,7 +32,6 @@ body {
   &._loaded {
   }
 }
-
 ._container {
   max-width: $maxWidthContainer + px;
   margin: 0 auto;

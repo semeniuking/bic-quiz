@@ -2,6 +2,7 @@ let score = 1;
 let socialScore = 3;
 let scoreNumber = document.querySelector('.scoreNumber');
 
+
 function getById(id) {
     return document.getElementById(id);
 }
@@ -10,6 +11,7 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
+    window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
 }
 
 
@@ -23,7 +25,7 @@ function removeBlocks() {
 function removeStyles() {
     const allques = [...document.querySelectorAll('.question')];
     for (let i = 0; i < allques.length; i++) {
-        allques[i].classList.remove('false', 'true')
+        allques[i].classList.remove('false', 'true', 'disable')
     }
 }
 
@@ -31,6 +33,7 @@ function removeStyles() {
 let startOverBtn = document.querySelector('.start-over-btn')
 
 startOverBtn.addEventListener('click', (target) => {
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
     removeStyles();
     removeBlocks();
 })
@@ -54,7 +57,7 @@ document.addEventListener('click', ({target}) => {
         if (target.getAttribute('data-question') === 'false' && check[0].getAttribute('data-question') === 'false') {
         } else if (target.getAttribute('data-question') === 'true' && check[1].getAttribute('data-question') === 'false') {
             check[1].classList.add('disable')
-        } else if(target.getAttribute('data-question') === 'true' && check[0].getAttribute('data-question') === 'false'){
+        } else if (target.getAttribute('data-question') === 'true' && check[0].getAttribute('data-question') === 'false') {
             check[0].classList.add('disable')
         }
     }
