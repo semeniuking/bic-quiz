@@ -1,6 +1,7 @@
 let score = 1;
 let socialScore = 3;
 let scoreNumber = document.querySelector('.scoreNumber');
+let startOverBtn = document.querySelector('.start-over-btn')
 
 
 function getById(id) {
@@ -45,15 +46,8 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
-// Saves current scroll position so we can return to it after calculations
-
     smoothScrollTo(window.innerHeight + 300, 2500);
-
-    // if (window.innerWidth < 768) {
-    //     window.scrollTo({ left: 0, top: document.body.scrollHeight + 100, behavior: "smooth" });
-    // } else{
-    //     window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
-    // }
+    startOverBtn.style.display = 'flex';
 }
 
 
@@ -69,18 +63,20 @@ function removeStyles() {
     for (let i = 0; i < allques.length; i++) {
         allques[i].classList.remove('false', 'true', 'disable')
     }
+    startOverBtn.style.display = 'none';
 }
 
 
-let startOverBtn = document.querySelector('.start-over-btn')
+let startOver = document.querySelector('.start-over-btn')
 
-startOverBtn.addEventListener('click', (target) => {
+startOver.addEventListener('click', (target) => {
     window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
     removeStyles();
     removeBlocks();
 })
 
 document.addEventListener('click', ({target}) => {
+    // Определяю какой блок имеет data-question="true|false" и даю нужный класс
     if (!event.target.classList.contains('question')) return;
 
     const question = target.closest('.question');
@@ -92,9 +88,9 @@ document.addEventListener('click', ({target}) => {
         score++;
     }
 
+    // Определяю какой блок имеет data-question="true" и даю противоположному блоку класс дизэйбл
     let container = target.closest('.questions');
     let check = container.querySelectorAll('.question');
-    // let trueQ = check[i].getAttribute('data-question') === 'true';
     for (i = 0; i < check.length; i++) {
         if (target.getAttribute('data-question') === 'false' && check[0].getAttribute('data-question') === 'false') {
         } else if (target.getAttribute('data-question') === 'true' && check[1].getAttribute('data-question') === 'false') {
@@ -105,17 +101,20 @@ document.addEventListener('click', ({target}) => {
     }
 });
 
-// if (target.getAttribute('data-question') === 'false') {
-//
-// } else if (target.getAttribute('data-question') === 'true') {
-// }
+let copyTextareaBtn = document.querySelector('.share-btn');
+let copyTextarea = document.querySelector('.share-input');
+copyTextarea.innerHTML = window.location.href;
 
+copyTextareaBtn.addEventListener('click', function(event) {
 
-// if (check[1].getAttribute('data-question') === 'true') {
-// } else if(check[0].getAttribute('data-question') === 'false'){
-//     check[0].classList.add('disable');
-// } else{
-//     check[1].classList.add('disable');
-// }
+    copyTextarea.focus();
+    copyTextarea.select();
 
-
+    try {
+        var successful = document.execCommand('copy');
+        var msg = successful ? 'successful' : 'unsuccessful';
+        console.log('Copying text command was ' + msg);
+    } catch (err) {
+        console.log('Oops, unable to copy');
+    }
+});

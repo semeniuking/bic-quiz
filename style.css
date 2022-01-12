@@ -210,18 +210,34 @@ h1 {
   display: none;
 }
 
-.start-over-btn {
+.btn-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 150px 0;
+}
+
+.start-over-btn, .share-btn {
   width: 150px;
   height: 42px;
   background-color: yellow;
   font-size: 24px;
-  display: flex;
   align-items: center;
   justify-content: center;
-  margin: 150px 0;
+  display: none;
 }
-.start-over-btn:hover {
+.start-over-btn:hover, .share-btn:hover {
   cursor: pointer;
+}
+
+.share-btn {
+  display: block !important;
+}
+
+.share-input {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
