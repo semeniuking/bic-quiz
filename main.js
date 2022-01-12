@@ -11,7 +11,12 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
-    window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
+
+    if (window.innerWidth < 768) {
+        window.scrollTo({ left: 0, top: document.body.scrollHeight + 100, behavior: "smooth" });
+    } else{
+        window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
+    }
 }
 
 
