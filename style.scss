@@ -90,8 +90,11 @@ h1 {
     width: 100%;
     padding: 20px;
     border: 1px solid #000;
+    transition: all 0.3s ease-in-out;
+
 
     &-answer {
+
       position: absolute;
       display: block;
       width: 0;
@@ -111,7 +114,10 @@ h1 {
         top: 180%;
       }
     }
-
+    &.disable{
+      pointer-events: none;
+      opacity: .2;
+    }
     &.true {
       filter: drop-shadow(2px 2px 15px #0000ff);
 
@@ -121,6 +127,7 @@ h1 {
         opacity: 1;
         top: 180%;
       }
+      &.false{}
     }
 
     &:hover {

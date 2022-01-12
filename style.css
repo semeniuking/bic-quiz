@@ -169,6 +169,7 @@ h1 {
   width: 100%;
   padding: 20px;
   border: 1px solid #000;
+  transition: all 0.3s ease-in-out;
 }
 .questions .question-answer {
   position: absolute;
@@ -187,6 +188,10 @@ h1 {
   height: 100%;
   opacity: 1;
   top: 180%;
+}
+.questions .question.disable {
+  pointer-events: none;
+  opacity: 0.2;
 }
 .questions .question.true {
   filter: drop-shadow(2px 2px 15px #0000ff);
