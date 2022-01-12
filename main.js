@@ -7,16 +7,53 @@ function getById(id) {
     return document.getElementById(id);
 }
 
+
+
+
+window.smoothScrollTo = (function () {
+    var timer, start, factor;
+
+    return function (target, duration) {
+        var offset = window.pageYOffset,
+            delta  = target - window.pageYOffset; // Y-offset difference
+        duration = duration || 1000;              // default 1 sec animation
+        start = Date.now();                       // get start time
+        factor = 0;
+
+        if( timer ) {
+            clearInterval(timer); // stop any running animations
+        }
+
+        function step() {
+            var y;
+            factor = (Date.now() - start) / duration; // get interpolation factor
+            if( factor >= 1 ) {
+                clearInterval(timer); // stop animation
+                factor = 1;           // clip to max 1.0
+            }
+            y = factor * delta + offset;
+            window.scrollBy(0, y - window.pageYOffset);
+        }
+
+        timer = setInterval(step, 10);
+        return timer;
+    };
+}());
+
+
 function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
+// Saves current scroll position so we can return to it after calculations
 
-    if (window.innerWidth < 768) {
-        window.scrollTo({ left: 0, top: document.body.scrollHeight + 100, behavior: "smooth" });
-    } else{
-        window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
-    }
+    smoothScrollTo(window.innerHeight + 300, 2500);
+
+    // if (window.innerWidth < 768) {
+    //     window.scrollTo({ left: 0, top: document.body.scrollHeight + 100, behavior: "smooth" });
+    // } else{
+    //     window.scrollTo({ left: 0, top: document.body.scrollHeight, behavior: "smooth" });
+    // }
 }
 
 
