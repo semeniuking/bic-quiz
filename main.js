@@ -41,12 +41,23 @@ window.smoothScrollTo = (function () {
     };
 }());
 
+function scroll(elem) {
+    elem.scrollIntoView({block: "center", behavior: "smooth"});
+}
 
 function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
-    smoothScrollTo(window.innerHeight + 300, 2500);
+    scroll(nextStep);
+    // if (window.innerWidth < 768) {
+    //     smoothScrollTo(window.innerHeight + 500, 1500);
+    //     console.log(innerWidth)
+    // } else{
+    //     smoothScrollTo(window.innerHeight, 2000);
+    //     console.log(innerWidth + ' mob')
+    // }
+    startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
 
@@ -63,16 +74,30 @@ function removeStyles() {
     for (let i = 0; i < allques.length; i++) {
         allques[i].classList.remove('false', 'true', 'disable')
     }
+    startOverFixed.style.display = 'none';
     startOverBtn.style.display = 'none';
 }
 
 
 let startOver = document.querySelector('.start-over-btn')
+let startOverFixed = document.querySelector('.start-over-fixed')
+
+
+startOverFixed.addEventListener('click', (target) => {
+    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    setTimeout(() =>{
+        removeStyles();
+        removeBlocks();
+    }, 1000)
+
+})
 
 startOver.addEventListener('click', (target) => {
     window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
-    removeStyles();
-    removeBlocks();
+    setTimeout(() =>{
+        removeStyles();
+        removeBlocks();
+    }, 1000)
 })
 
 document.addEventListener('click', ({target}) => {
@@ -83,6 +108,7 @@ document.addEventListener('click', ({target}) => {
 
     if (question.getAttribute('data-question') === 'false') {
         question.classList.add('false')
+        startOverFixed.style.display = 'flex';
     } else if (question.getAttribute('data-question') === 'true') {
         question.classList.add('true');
         score++;
@@ -98,23 +124,5 @@ document.addEventListener('click', ({target}) => {
         } else if (target.getAttribute('data-question') === 'true' && check[0].getAttribute('data-question') === 'false') {
             check[0].classList.add('disable')
         }
-    }
-});
-
-let copyTextareaBtn = document.querySelector('.share-btn');
-let copyTextarea = document.querySelector('.share-input');
-copyTextarea.innerHTML = window.location.href;
-
-copyTextareaBtn.addEventListener('click', function(event) {
-
-    copyTextarea.focus();
-    copyTextarea.select();
-
-    try {
-        var successful = document.execCommand('copy');
-        var msg = successful ? 'successful' : 'unsuccessful';
-        console.log('Copying text command was ' + msg);
-    } catch (err) {
-        console.log('Oops, unable to copy');
     }
 });
