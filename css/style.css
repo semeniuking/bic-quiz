@@ -477,6 +477,7 @@ body._lock {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 30px;
 }
 .start-over-fixed {
   position: fixed;
