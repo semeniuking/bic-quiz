@@ -9,26 +9,24 @@ function getById(id) {
 }
 
 
-
-
 window.smoothScrollTo = (function () {
     var timer, start, factor;
 
     return function (target, duration) {
         var offset = window.pageYOffset,
-            delta  = target - window.pageYOffset; // Y-offset difference
+            delta = target - window.pageYOffset; // Y-offset difference
         duration = duration || 1000;              // default 1 sec animation
         start = Date.now();                       // get start time
         factor = 0;
 
-        if( timer ) {
+        if (timer) {
             clearInterval(timer); // stop any running animations
         }
 
         function step() {
             var y;
             factor = (Date.now() - start) / duration; // get interpolation factor
-            if( factor >= 1 ) {
+            if (factor >= 1) {
                 clearInterval(timer); // stop animation
                 factor = 1;           // clip to max 1.0
             }
@@ -49,7 +47,7 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
-    setTimeout(() =>{
+    setTimeout(() => {
         scroll(nextStep);
     }, 500)
     // if (window.innerWidth < 768) {
@@ -91,19 +89,27 @@ let share = document.querySelector('.share-btn');
 
 const popups = [...document.getElementsByClassName('share-btn')];
 
-window.addEventListener('click', ({ target }) => {
+window.addEventListener('click', ({target}) => {
     const popup = target.closest('.share-btn');
     const clickedOnClosedPopup = popup && !popup.classList.contains('opened');
+    const clickedOnOpenedPopup = popup && popup.classList.contains('opened');
 
-    popups.forEach(p => p.classList.remove('opened'));
 
+    popups.forEach(p => {
+            if (target.closest('.share-btn') && popup.classList.contains('opened')) {
+            } else {
+                p.classList.remove('opened')
+            }
+        }
+    );
+    if (clickedOnOpenedPopup) popup.classList.add('opened');
     if (clickedOnClosedPopup) popup.classList.add('opened');
 });
 
 
 startOverFixed.addEventListener('click', (target) => {
     scroll(document.querySelector('.hero__container'))
-    setTimeout(() =>{
+    setTimeout(() => {
         removeStyles();
         removeBlocks();
     }, 1000)
@@ -112,7 +118,7 @@ startOverFixed.addEventListener('click', (target) => {
 
 startOver.addEventListener('click', (target) => {
     scroll(document.querySelector('.hero__container'))
-    setTimeout(() =>{
+    setTimeout(() => {
         removeStyles();
         removeBlocks();
     }, 1000)
@@ -145,8 +151,8 @@ document.addEventListener('click', ({target}) => {
     }
 });
 
-function removeStartOver(){
-    window.onscroll = function(ev) {
+function removeStartOver() {
+    window.onscroll = function (ev) {
         if ((window.innerHeight + window.scrollY + 100) >= document.body.scrollHeight) {
             startOverFixed.style.display = 'none'
         }
