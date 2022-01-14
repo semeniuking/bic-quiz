@@ -49,7 +49,9 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
-    scroll(nextStep);
+    setTimeout(() =>{
+        scroll(nextStep);
+    }, 500)
     // if (window.innerWidth < 768) {
     //     smoothScrollTo(window.innerHeight + 500, 1500);
     //     console.log(innerWidth)
@@ -75,16 +77,32 @@ function removeStyles() {
         allques[i].classList.remove('false', 'true', 'disable')
     }
     startOverFixed.style.display = 'none';
-    startOverBtn.style.display = 'none';
+    startOverBlock.style.display = 'none';
 }
 
 
-let startOver = document.querySelector('.start-over-btn')
+let startOverBlock = document.querySelector('.btn-block')
 let startOverFixed = document.querySelector('.start-over-fixed')
+let startOver = document.querySelector('.start-over-btn')
+
+let popup = document.querySelector('.popup');
+let share = document.querySelector('.share-btn');
+
+
+const popups = [...document.getElementsByClassName('share-btn')];
+
+window.addEventListener('click', ({ target }) => {
+    const popup = target.closest('.share-btn');
+    const clickedOnClosedPopup = popup && !popup.classList.contains('opened');
+
+    popups.forEach(p => p.classList.remove('opened'));
+
+    if (clickedOnClosedPopup) popup.classList.add('opened');
+});
 
 
 startOverFixed.addEventListener('click', (target) => {
-    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    scroll(document.querySelector('.hero__container'))
     setTimeout(() =>{
         removeStyles();
         removeBlocks();
@@ -93,7 +111,7 @@ startOverFixed.addEventListener('click', (target) => {
 })
 
 startOver.addEventListener('click', (target) => {
-    window.scrollTo({ left: 0, top: 0, behavior: "smooth" });
+    scroll(document.querySelector('.hero__container'))
     setTimeout(() =>{
         removeStyles();
         removeBlocks();
@@ -126,3 +144,11 @@ document.addEventListener('click', ({target}) => {
         }
     }
 });
+
+function removeStartOver(){
+    window.onscroll = function(ev) {
+        if ((window.innerHeight + window.scrollY + 100) >= document.body.scrollHeight) {
+            startOverFixed.style.display = 'none'
+        }
+    };
+}

@@ -47,11 +47,10 @@ body {
   }
   @media (max-width: $md2+px) {
     max-width: 750px;
-    margin: 50px 0;
   }
   @media (max-width: $md3+px) {
     max-width: none;
-    padding: 0 15px;
+    padding: 0 20px;
   }
 }
 
@@ -97,8 +96,12 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  min-height: 550px;
+  min-height: 100vh;
   width: 100%;
+  padding: 100px 0;
+  @media (max-width: $md3 + px) {
+    padding: 50px 0 270px;
+  }
 
   &__container {
     display: flex;
@@ -108,7 +111,7 @@ body {
     @media (max-width: $md3 + px) {
       flex-direction: column;
       gap: 30px;
-      }
+    }
   }
 
   &__title {
@@ -126,20 +129,29 @@ body {
     z-index: 3;
     margin-top: 50px;
     margin-bottom: 75px;
-    svg.line-1{
+    text-align: center;
+    @media (max-width: $md3 + px) {
+      font-size: 36px;
+      margin: 20px 0 40px;
+    }
+
+    svg.line-1 {
       //bottom: -60px;
       //position: absolute;
       z-index: 2;
-      path{
+
+      path {
         fill: $mainColor;
       }
     }
-    svg.line-2{
+
+    svg.line-2 {
       position: absolute;
       width: 238.5px;
       bottom: -4px;
       z-index: 1;
-      path{
+
+      path {
         fill: $mainOrange;
       }
     }
@@ -172,6 +184,7 @@ body {
     height: 103px;
     z-index: 1;
     transition: transform 1s ease-in-out;
+
     &:hover {
       &:before {
         transform: rotate(1.83deg);
@@ -211,24 +224,83 @@ body {
     }
 
 
-    &-answer {
+    &__answer {
       pointer-events: none;
       position: absolute;
-      display: block;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      flex-direction: column;
       width: 0;
       height: 0;
       opacity: 0;
-      color: #000;
+      color: $mainColor;
+      font-size: 26px;
+      line-height: 1.5;
+      @media (max-width: $md3 + px) {
+        font-size: 20px;
+      }
+
+      span {
+        position: relative;
+        text-transform: uppercase;
+        margin: 20px 0 15px;
+
+        &:after, &:before {
+          content: "";
+          display: block;
+          position: absolute;
+          background: url(../img/q-answer.svg) 0 0 no-repeat;
+          width: 37px;
+          height: 75px;
+          top: calc(50% - 37.5px);
+        }
+
+        &:after {
+          right: -60px;
+          transform: rotate(180deg);
+        }
+
+        &:before {
+          left: -60px;
+        }
+      }
+
+      .image-block {
+        margin: 0 0 20px;
+
+        img {
+          width: 60px;
+
+          &:not(:last-child) {
+            margin-right: 8px;
+          }
+
+          filter: drop-shadow(0px 5px 8px rgba(106, 104, 75, 0.31));
+        }
+      }
     }
 
     &.false {
       pointer-events: none;
 
-      & + .question-answer {
+      &.disable {
+        & + .question__answer {
+          @media (max-width: $md3 + px) {
+            display: none;
+          }
+        }
+      }
+
+      & + .question__answer {
         width: 100%;
         height: auto;
         opacity: 1;
         top: 180%;
+        @media (max-width: $md3 + px) {
+          top: 300%;
+        }
       }
     }
 
@@ -243,6 +315,10 @@ body {
     }
 
     &.true {
+      & + .question-answer {
+        font-weight: bold;
+      }
+
       &:after {
         background-color: $mainOrange;
       }
@@ -252,11 +328,11 @@ body {
 
       }
 
-      & + .question-answer {
+      & + .question__answer {
         width: 100%;
         height: auto;
         opacity: 1;
-        top: 180%;
+        top: 130%;
       }
     }
 
@@ -279,28 +355,73 @@ body {
 .btn-block {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   margin: 150px 0;
+  @media (max-width: $md3 + px) {
+    flex-direction: column;
+  }
+
+  & > div {
+    &:first-child {
+      margin-right: 50px;
+      @media (max-width: $md3 + px) {
+        margin-right: 0;
+        margin-bottom: 25px;
+      }
+    }
+  }
 }
 
-.start-over-btn {
-  width: 150px;
-  height: 42px;
-  background-color: yellow;
-  font-size: 24px;
+.btn {
+  font-weight: 800;
+  font-size: 22px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  display: none;
+  letter-spacing: 2px;
+  background: #3076C7;
+  border: 2px solid #FFFFFF;
+  border-radius: 51.5px;
+  color: #FFFFFF;
+  width: 271px;
+  height: 103px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0px 4px 0px 3px $secondaryBlue;
+  transition: box-shadow .25s ease-in-out, transform .25s ease-in-out;
 
   &:hover {
+    transform: translateY(4px);
+    box-shadow: 0px 0px 0px 0px $secondaryBlue;
     cursor: pointer;
+  }
+
+  svg {
+    margin-left: 15px;
   }
 }
 
 .share-btn {
-  @extend .start-over-btn;
+  &.opened {
+    & > .popup {
+      width: 300px;
+      height: 200px;
+      background-color: #000;
+      opacity: 1;
+    }
+  }
 }
-.start-over-fixed{
+
+.popup {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  display: flex;
+
+}
+
+.start-over-fixed {
   position: fixed;
   z-index: 10;
   display: none;
@@ -321,7 +442,8 @@ body {
   bottom: 35px;
   right: 5%;
   transition: filter .3s ease-in-out;
-  &:hover{
+
+  &:hover {
     background: #5bbdff;
     cursor: pointer;
     filter: drop-shadow(0px 5px 14px rgba(116, 170, 207, 0.48));
