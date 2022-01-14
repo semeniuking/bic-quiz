@@ -409,10 +409,19 @@ body._lock {
 }
 
 .btn-block {
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  height: 0;
+  width: 0;
+  opacity: 0;
+}
+.btn-block.active {
   margin: 150px 0;
+  width: auto;
+  height: auto;
+  opacity: 1;
 }
 @media (max-width: 768.01px) {
   .btn-block {

@@ -39,6 +39,17 @@ window.smoothScrollTo = (function () {
     };
 }());
 
+function showBtns(element) {
+    let value = document.getElementById(element).getAttribute('id');
+    let nextStep = getById('' + value.substr(0, value.length - 8) + '');
+    nextStep.classList.add('active')
+    setTimeout(() => {
+        scroll(nextStep);
+    }, 500)
+    startOverFixed.style.display = 'flex';
+    startOverBtn.style.display = 'flex';
+}
+
 function scroll(elem) {
     elem.scrollIntoView({block: "center", behavior: "smooth"});
 }
