@@ -9,7 +9,6 @@
   font-style: normal;
 }
 
-
 @font-face {
   font-family: 'Lato';
   src: url(../fonts/Lato-Regular.eot);
@@ -39,6 +38,14 @@
   url(../fonts/Lato-Bold.eot?#iefix) format('embedded-opentype'),
   url(../fonts/Lato-Bold.woff) format('woff'),
   url(../fonts/Lato-Bold.ttf) format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Calliope-MVB';
+  src: local('Calliope MVB Regular'),local('Calliope MVB Regular'),
+  url(../fonts/Calliope-MVB.ttf) format('truetype');
   font-weight: 700;
   font-style: normal;
 }

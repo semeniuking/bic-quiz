@@ -143,6 +143,7 @@ document.addEventListener('click', ({target}) => {
 
     if (question.getAttribute('data-question') === 'false') {
         question.classList.add('false')
+
         startOverFixed.style.display = 'flex';
     } else if (question.getAttribute('data-question') === 'true') {
         question.classList.add('true');
