@@ -8,49 +8,30 @@ function getById(id) {
     return document.getElementById(id);
 }
 
-
-window.smoothScrollTo = (function () {
-    var timer, start, factor;
-
-    return function (target, duration) {
-        var offset = window.pageYOffset,
-            delta = target - window.pageYOffset; // Y-offset difference
-        duration = duration || 1000;              // default 1 sec animation
-        start = Date.now();                       // get start time
-        factor = 0;
-
-        if (timer) {
-            clearInterval(timer); // stop any running animations
-        }
-
-        function step() {
-            var y;
-            factor = (Date.now() - start) / duration; // get interpolation factor
-            if (factor >= 1) {
-                clearInterval(timer); // stop animation
-                factor = 1;           // clip to max 1.0
-            }
-            y = factor * delta + offset;
-            window.scrollBy(0, y - window.pageYOffset);
-        }
-
-        timer = setInterval(step, 10);
-        return timer;
-    };
-}());
+//Finds y value of given object
+function findPos(obj) {
+    var curtop = 0;
+    if (obj.offsetParent) {
+        do {
+            curtop += obj.offsetTop;
+        } while (obj = obj.offsetParent);
+        return [curtop];
+    }
+}
 
 function showBtns(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.classList.add('active')
     setTimeout(() => {
-        scroll(nextStep);
+        window.scroll(0,findPos(nextStep));
     }, 500)
+    startOverBlock.style.display = 'flex';
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
 
-function scroll(elem) {
+function scrollToThe(elem) {
     elem.scrollIntoView({block: "center", behavior: "smooth"});
 }
 
@@ -59,15 +40,8 @@ function showNextStep(element) {
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
     setTimeout(() => {
-        scroll(nextStep);
+        window.scroll(0,findPos(nextStep));
     }, 500)
-    // if (window.innerWidth < 768) {
-    //     smoothScrollTo(window.innerHeight + 500, 1500);
-    //     console.log(innerWidth)
-    // } else{
-    //     smoothScrollTo(window.innerHeight, 2000);
-    //     console.log(innerWidth + ' mob')
-    // }
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
@@ -90,7 +64,7 @@ function removeStyles() {
 }
 
 
-let startOverBlock = document.querySelector('.btn-block')
+let startOverBlock = document.querySelector('#final-q')
 let startOverFixed = document.querySelector('.start-over-fixed')
 let startOver = document.querySelector('.start-over-btn')
 
@@ -119,7 +93,9 @@ window.addEventListener('click', ({target}) => {
 
 
 startOverFixed.addEventListener('click', (target) => {
-    scroll(document.querySelector('.hero__container'))
+    let startBlock = document.querySelector('.challenge-block');
+    scrollToThe(startBlock)
+
     setTimeout(() => {
         removeStyles();
         removeBlocks();
@@ -128,7 +104,8 @@ startOverFixed.addEventListener('click', (target) => {
 })
 
 startOver.addEventListener('click', (target) => {
-    scroll(document.querySelector('.hero__container'))
+    let startBlock = document.querySelector('.challenge-block');
+    scrollToThe(startBlock)
     setTimeout(() => {
         removeStyles();
         removeBlocks();
