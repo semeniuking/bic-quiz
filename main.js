@@ -24,7 +24,7 @@ function showBtns(element) {
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.classList.add('active')
     setTimeout(() => {
-        window.scroll(0,findPos(nextStep));
+        window.scroll(0, findPos(nextStep));
     }, 500)
     startOverBlock.style.display = 'flex';
     startOverFixed.style.display = 'flex';
@@ -40,7 +40,7 @@ function showNextStep(element) {
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'flex';
     setTimeout(() => {
-        window.scroll(0,findPos(nextStep));
+        window.scroll(0, findPos(nextStep));
     }, 500)
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
@@ -55,7 +55,7 @@ function removeBlocks() {
 }
 
 function removeStyles() {
-    const allques = [...document.querySelectorAll('.question')];
+    const allques = [...document.querySelectorAll('.questions__item')];
     for (let i = 0; i < allques.length; i++) {
         allques[i].classList.remove('false', 'true', 'disable')
     }
@@ -114,9 +114,10 @@ startOver.addEventListener('click', (target) => {
 
 document.addEventListener('click', ({target}) => {
     // Определяю какой блок имеет data-question="true|false" и даю нужный класс
-    if (!event.target.classList.contains('question')) return;
 
-    const question = target.closest('.question');
+    if (!target.classList.contains('question')) return;
+
+    const question = target.closest('.question').parentNode;
 
     if (question.getAttribute('data-question') === 'false') {
         question.classList.add('false')
@@ -124,17 +125,18 @@ document.addEventListener('click', ({target}) => {
         startOverFixed.style.display = 'flex';
     } else if (question.getAttribute('data-question') === 'true') {
         question.classList.add('true');
-        score++;
     }
 
     // Определяю какой блок имеет data-question="true" и даю противоположному блоку класс дизэйбл
-    let container = target.closest('.questions');
-    let check = container.querySelectorAll('.question');
+    let container = target.closest('.questions__container');
+    let check = container.querySelectorAll('.questions__item');
+    let checkParent = target.parentNode;
+
     for (i = 0; i < check.length; i++) {
-        if (target.getAttribute('data-question') === 'false' && check[0].getAttribute('data-question') === 'false') {
-        } else if (target.getAttribute('data-question') === 'true' && check[1].getAttribute('data-question') === 'false') {
+        if (checkParent.getAttribute('data-question') === 'false' && check[0].getAttribute('data-question') === 'false') {
+        } else if (checkParent.getAttribute('data-question') === 'true' && check[1].getAttribute('data-question') === 'false') {
             check[1].classList.add('disable')
-        } else if (target.getAttribute('data-question') === 'true' && check[0].getAttribute('data-question') === 'false') {
+        } else if (checkParent.getAttribute('data-question') === 'true' && check[0].getAttribute('data-question') === 'false') {
             check[0].classList.add('disable')
         }
     }
@@ -142,8 +144,10 @@ document.addEventListener('click', ({target}) => {
 
 function removeStartOver() {
     window.onscroll = function (ev) {
-        if ((window.innerHeight + window.scrollY + 100) >= document.body.scrollHeight) {
+        if ((window.innerHeight + window.scrollY + 400) >= document.body.scrollHeight) {
             startOverFixed.style.display = 'none'
+        } else {
+            startOverFixed.style.display = 'flex'
         }
     };
 }
