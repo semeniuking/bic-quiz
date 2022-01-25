@@ -26,7 +26,7 @@ function showBtns(element) {
     setTimeout(() => {
         window.scroll(0, findPos(nextStep));
     }, 500)
-    startOverBlock.style.display = 'flex';
+    startOverBlock.style.display = 'block';
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
@@ -38,7 +38,7 @@ function scrollToThe(elem) {
 function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
-    nextStep.style.display = 'flex';
+    nextStep.style.display = 'block';
     setTimeout(() => {
         window.scroll(0, findPos(nextStep));
     }, 500)
