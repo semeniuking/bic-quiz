@@ -415,6 +415,7 @@ body {
   filter: drop-shadow(0px 4px 14px rgba(98, 95, 90, 0.59));
   max-width: 100%;
   height: auto;
+  z-index: 4;
 }
 @media (max-width: 478.01px) {
   .challenge-block .pen {
