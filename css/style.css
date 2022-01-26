@@ -850,7 +850,7 @@ body {
 }
 
 #fourth-q {
-  background: #FCAB23 url("../img/bg-fourth-q-bg.png") 0 0/cover no-repeat;
+  background: url("../img/bg-fourth-q-bg.png") 0 0/cover no-repeat;
   position: relative;
 }
 #fourth-q .top {
