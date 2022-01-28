@@ -1820,6 +1820,11 @@ body {
   height: 160px;
   opacity: 1;
 }
+@media (max-width: 768.01px) {
+  .share-btn.opened > .popup {
+    max-width: 300px;
+  }
+}
 
 .popup {
   position: absolute;
@@ -1840,6 +1845,12 @@ body {
   filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.31));
   transition: transform 0.3s ease, filter 0.3s ease;
 }
+@media (max-width: 768.01px) {
+  .popup__link img {
+    max-width: 60px;
+    height: auto;
+  }
+}
 .popup__link img:hover {
   filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.41));
   transform: translateY(-3px);
@@ -1855,6 +1866,11 @@ body {
   height: 100%;
   border-radius: 16px;
   z-index: 3;
+}
+@media (max-width: 768.01px) {
+  .popup > div {
+    gap: 15px;
+  }
 }
 .popup > div > div {
   display: block;
