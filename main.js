@@ -7,16 +7,16 @@ function getById(id) {
 
 //Finds y value of given object
 function findPos(obj) {
-    var curtop = 0;
+    let currentTop = 0;
     if (obj.offsetParent) {
         do {
-            curtop += obj.offsetTop;
-        } while (obj = obj.offsetParent);
-        return [curtop];
+            currentTop += obj.offsetTop;
+        } while (obj === obj.offsetParent);
+        return [currentTop];
     }
 }
 
-function showBtns(element) {
+function showButtons(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.classList.add('active')
@@ -35,17 +35,39 @@ function scrollToThe(elem) {
 function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
+    let nextStepId = nextStep.getAttribute('id')
+    console.log(nextStepId)
     nextStep.style.display = 'block';
     if (window.innerWidth < 768) {
-        smoothScroll({block: '20%',toElement: document.getElementById(element)});
+        smoothScroll({
+            preventUserScroll: 'false',
+            duration: '500',
+            block: '20%',
+            toElement: document.getElementById(element)
+        });
     }
     setTimeout(() => {
-        window.scroll(0, findPos(nextStep));
+        smoothScroll({
+            preventUserScroll: 'false',
+            duration: '500',
+            block: 'end',
+            toElement: document.getElementById(nextStepId)
+        });
     }, 5000)
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
 
+function scrollToBottom(element) {
+    setTimeout(() => {
+        smoothScroll({
+            preventUserScroll: 'false',
+            duration: '500',
+            block: 'end',
+            toElement: document.getElementById(element),
+        });
+    }, 200)
+}
 
 function removeBlocks() {
     const questions = [...document.querySelectorAll('.questions')];
@@ -55,9 +77,9 @@ function removeBlocks() {
 }
 
 function removeStyles() {
-    const allques = [...document.querySelectorAll('.questions__item')];
-    for (let i = 0; i < allques.length; i++) {
-        allques[i].classList.remove('false', 'true', 'disable')
+    const allQues = [...document.querySelectorAll('.questions__item')];
+    for (let i = 0; i < allQues.length; i++) {
+        allQues[i].classList.remove('false', 'true', 'disable')
     }
     startOverFixed.style.display = 'none';
     startOverBlock.style.display = 'none';
@@ -67,10 +89,6 @@ function removeStyles() {
 let startOverBlock = document.querySelector('#final-q')
 let startOverFixed = document.querySelector('.start-over-fixed')
 let startOver = document.querySelector('.start-over-btn')
-
-let popup = document.querySelector('.popup');
-let share = document.querySelector('.share-btn');
-
 
 const popups = [...document.getElementsByClassName('share-btn')];
 
@@ -92,7 +110,7 @@ window.addEventListener('click', ({target}) => {
 });
 
 
-startOverFixed.addEventListener('click', (target) => {
+startOverFixed.addEventListener('click', () => {
     let startBlock = document.querySelector('.challenge-block');
     scrollToThe(startBlock)
 
@@ -103,7 +121,7 @@ startOverFixed.addEventListener('click', (target) => {
 
 })
 
-startOver.addEventListener('click', (target) => {
+startOver.addEventListener('click', () => {
     let startBlock = document.querySelector('.challenge-block');
     scrollToThe(startBlock)
     setTimeout(() => {
@@ -143,7 +161,7 @@ document.addEventListener('click', ({target}) => {
 });
 
 function removeStartOver() {
-    window.onscroll = function (ev) {
+    window.onscroll = function () {
         if ((window.innerHeight + window.scrollY + 400) >= document.body.scrollHeight) {
             startOverFixed.style.display = 'none'
         } else {
