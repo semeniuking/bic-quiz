@@ -557,12 +557,9 @@ body {
 #first-q {
   position: relative;
   margin: 0 0;
-  padding: 200px 0 0;
+  padding: 250px 0 0;
   z-index: 2;
   background: #F79B0D;
-  @media (max-width: $md2 + px) {
-    padding: 250px 0 0;
-  }
   @media (max-width: $md4 + px) {
     padding: 200px 0 0;
   }
@@ -642,12 +639,19 @@ body {
 
       & > .question {
         z-index: 1;
+
         &:after {
-          background: #F79B0D;
+          background: #F19405;
+          @media (max-width: $md3 + px) {
+            background: #F79B0D;
+          }
         }
 
         &:before {
-          background: #F19405;
+          background: #FFA61C;
+          @media (max-width: $md3 + px) {
+            background: #F19405;
+          }
         }
 
         & > .arrow-mob {
@@ -726,8 +730,12 @@ body {
     &.false {
       & > .question {
         z-index: 1;
+
         &:after {
-          background-color: #5FB4F7;
+          background: #52B0FA;
+          @media (max-width: $md3 + px) {
+            background-color: #5FB4F7;
+          }
         }
 
         &:before {
@@ -815,6 +823,7 @@ body {
 
       & > .question {
         z-index: 1;
+
         &:after {
           background: #F8D681;
         }
@@ -921,6 +930,7 @@ body {
       &:before {
         background: linear-gradient(180deg, #FF9E06 27.76%, rgba(252, 185, 49, 0) 100%);
       }
+
       & > .question__answer {
         padding-top: 20px;
         max-width: 280px;
@@ -928,8 +938,13 @@ body {
 
       & > .question {
         z-index: 1;
+
         &:after {
-          background: #FCAE23;
+          background: #FFA20D;
+          @media (max-width: $md3 + px) {
+            background: #FCAE23;
+
+          }
         }
 
         &:before {
@@ -1623,7 +1638,7 @@ body {
 }
 
 #second-q, #third-q, #fourth-q, #final-q {
-  display: block;
+  display: none;
 }
 
 .btn-block {

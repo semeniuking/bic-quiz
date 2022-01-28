@@ -1,6 +1,3 @@
-let score = 1;
-let socialScore = 3;
-let scoreNumber = document.querySelector('.scoreNumber');
 let startOverBtn = document.querySelector('.start-over-btn')
 
 
@@ -39,9 +36,14 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'block';
+    // if (window.innerWidth < 768) {
+    //     value.addEventListener('click', function(e){
+    //         smoothScroll({toElement: document.getElementById('value')});
+    //     });;
+    // }
     setTimeout(() => {
         window.scroll(0, findPos(nextStep));
-    }, 500)
+    }, 5000)
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
@@ -151,3 +153,13 @@ function removeStartOver() {
         }
     };
 }
+//
+// function scrollToBottom() {
+//     if (window.innerWidth < 768) {
+//         window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+//         console.log('smh')
+//
+//     } else {
+//         console.log('expected outcome')
+//     }
+// }
