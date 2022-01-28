@@ -19,10 +19,23 @@ function findPos(obj) {
 function showButtons(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
-    nextStep.classList.add('active')
+    let nextStepId = nextStep.getAttribute('id')
+    if (window.innerWidth < 768) {
+        smoothScroll({
+            preventUserScroll: 'false',
+            duration: '500',
+            block: '20%',
+            toElement: document.getElementById(element)
+        });
+    }
     setTimeout(() => {
-        window.scroll(0, findPos(nextStep));
-    }, 500)
+        smoothScroll({
+            preventUserScroll: 'false',
+            duration: '500',
+            block: 'end',
+            toElement: document.getElementById(nextStepId)
+        });
+    }, 5000)
     startOverBlock.style.display = 'block';
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
