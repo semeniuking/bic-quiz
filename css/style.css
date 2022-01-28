@@ -1503,6 +1503,11 @@ body {
     right: -30%;
   }
 }
+@media (max-width: 992.01px) {
+  .score-block__sun {
+    top: -200px;
+  }
+}
 @media (max-width: 768.01px) {
   .score-block__sun {
     right: -23%;
@@ -1526,7 +1531,12 @@ body {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  margin-bottom: 30px;
+  margin: 30px 0 0;
+}
+@media (max-width: 992.01px) {
+  .old-score {
+    margin: 30px 0;
+  }
 }
 @media (max-width: 768.01px) {
   .old-score {
@@ -1743,7 +1753,7 @@ body {
 }
 
 #second-q, #third-q, #fourth-q, #final-q {
-  display: none;
+  display: block;
 }
 
 .btn-block {
@@ -1806,9 +1816,8 @@ body {
   transform: translateY(4px);
 }
 .share-btn.opened > .popup {
-  width: 300px;
-  height: 200px;
-  background-color: #000;
+  width: 370px;
+  height: 160px;
   opacity: 1;
 }
 
@@ -1818,11 +1827,46 @@ body {
   height: 0;
   opacity: 0;
   top: -220px;
+  padding: 10px;
+  background-color: #F3BA52;
+  border-radius: 24px;
+  box-shadow: 0px 10px 10px rgba(51, 50, 48, 0.3);
+  z-index: 1;
+}
+.popup:hover {
+  cursor: auto;
+}
+.popup__link img {
+  filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.31));
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.popup__link img:hover {
+  filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.41));
+  transform: translateY(-3px);
+}
+.popup > div {
+  background: #FFECA5;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 30px;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  z-index: 3;
+}
+.popup > div > div {
+  display: block;
+  position: absolute;
+  width: 96px;
+  height: 96px;
+  background: #FFECA5;
+  border-radius: 16px;
+  border: 10px solid #F3BA52;
+  bottom: -20px;
+  transform: rotate(45deg);
+  z-index: -1;
 }
 
 .start-over-fixed {
@@ -1855,7 +1899,7 @@ body {
 
 .end-block {
   margin-top: -100px;
-  background: url("../img/btn-bg.png") 0 0/cover no-repeat;
+  background: url("../img/btn-bg.png") center 0/cover no-repeat;
   padding: 150px 0;
 }
 @media (max-width: 768.01px) {

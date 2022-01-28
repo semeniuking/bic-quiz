@@ -49,7 +49,6 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     let nextStepId = nextStep.getAttribute('id')
-    console.log(nextStepId)
     nextStep.style.display = 'block';
     if (window.innerWidth < 768) {
         smoothScroll({
