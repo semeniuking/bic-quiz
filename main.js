@@ -36,11 +36,9 @@ function showNextStep(element) {
     let value = document.getElementById(element).getAttribute('id');
     let nextStep = getById('' + value.substr(0, value.length - 8) + '');
     nextStep.style.display = 'block';
-    // if (window.innerWidth < 768) {
-    //     value.addEventListener('click', function(e){
-    //         smoothScroll({toElement: document.getElementById('value')});
-    //     });;
-    // }
+    if (window.innerWidth < 768) {
+        smoothScroll({block: '20%',toElement: document.getElementById(element)});
+    }
     setTimeout(() => {
         window.scroll(0, findPos(nextStep));
     }, 5000)
@@ -153,6 +151,7 @@ function removeStartOver() {
         }
     };
 }
+
 //
 // function scrollToBottom() {
 //     if (window.innerWidth < 768) {
