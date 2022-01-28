@@ -32,10 +32,10 @@ function showButtons(element) {
         smoothScroll({
             preventUserScroll: 'false',
             duration: '500',
-            block: 'end',
+            block: '-12%',
             toElement: document.getElementById(nextStepId)
         });
-    }, 5000)
+    }, 1000)
     startOverBlock.style.display = 'block';
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
@@ -53,7 +53,6 @@ function showNextStep(element) {
     if (window.innerWidth < 768) {
         smoothScroll({
             preventUserScroll: 'false',
-            duration: '500',
             block: '20%',
             toElement: document.getElementById(element)
         });
@@ -61,24 +60,26 @@ function showNextStep(element) {
     setTimeout(() => {
         smoothScroll({
             preventUserScroll: 'false',
-            duration: '500',
+            duration: '800',
             block: 'end',
             toElement: document.getElementById(nextStepId)
         });
-    }, 5000)
+    }, 2000)
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
 }
 
 function scrollToBottom(element) {
-    setTimeout(() => {
-        smoothScroll({
-            preventUserScroll: 'false',
-            duration: '500',
-            block: 'end',
-            toElement: document.getElementById(element),
-        });
-    }, 200)
+    if (window.innerWidth < 768) {
+        setTimeout(() => {
+            smoothScroll({
+                preventUserScroll: 'false',
+                duration: '500',
+                block: 'end',
+                toElement: document.getElementById(element),
+            });
+        }, 50)
+    }
 }
 
 function removeBlocks() {
@@ -172,23 +173,12 @@ document.addEventListener('click', ({target}) => {
     }
 });
 
-function removeStartOver() {
-    window.onscroll = function () {
-        if ((window.innerHeight + window.scrollY + 400) >= document.body.scrollHeight) {
-            startOverFixed.style.display = 'none'
-        } else {
-            startOverFixed.style.display = 'flex'
-        }
-    };
-}
-
-//
-// function scrollToBottom() {
-//     if (window.innerWidth < 768) {
-//         window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
-//         console.log('smh')
-//
-//     } else {
-//         console.log('expected outcome')
-//     }
+// function removeStartOver() {
+//     window.onscroll = function () {
+//         if ((window.innerHeight + window.scrollY + 400) >= document.body.scrollHeight) {
+//             startOverFixed.style.display = 'none'
+//         } else {
+//             startOverFixed.style.display = 'flex'
+//         }
+//     };
 // }
