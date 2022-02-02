@@ -276,10 +276,31 @@ body {
     z-index: 1;
     height: 100%;
     margin: -50px 0;
+
+    & > svg {
+      width: 50px;
+      height: auto;
+      position: absolute;
+      top: 115%;
+      animation: down1 3s ease-in-out infinite;
+      @media (max-width: $md2 + px) {
+        top: 95%;
+      }
+      @media (max-width: $md3 + px) {
+        top: 95%;
+        width: 35px;
+      }
+      @media (max-width: $md4 + px) {
+        width: 28px;
+        top: 90%;
+      }
+    }
+
     @media (max-width: $md2 + px) {
       padding: 60px 0;
     }
   }
+
 }
 
 .challenge-block {
@@ -429,6 +450,8 @@ body {
 
       img {
         filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.31));
+        max-width: 80px;
+        height: auto;
         @media (max-width: $md1 + px) {
           max-width: 48px;
           height: auto;
@@ -496,7 +519,7 @@ body {
     align-items: center;
     flex-direction: column;
     position: relative;
-
+    z-index: 2;
 
     .challenge-rules {
       background: #FFF7D1;
@@ -529,29 +552,70 @@ body {
 
     & > img {
       position: absolute;
-      bottom: -80px;
+      bottom: -90px;
+      animation: down 4s ease-in-out infinite;
     }
   }
 
-  .challenge-title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    z-index: 2;
+}
+
+.challenge-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  max-width: 100%;
+
+  img {
+    position: relative;
+    width: 522px;
+    height: auto;
     max-width: 100%;
+    filter: drop-shadow(0px 2px 6px rgba(48, 39, 29, 0.19));
+  }
 
-    img {
-      max-width: 100%;
+  .underline {
+    position: absolute;
+    z-index: 3;
+    bottom: 60px;
+    stroke-dashoffset: 10000;
+    @media (max-width: $md4 + px) {
+      max-width: 200px;
       height: auto;
-      filter: drop-shadow(0px 2px 6px rgba(48, 39, 29, 0.19));
-      @media (max-width: $md4 + px) {
-        max-width: 110%;
-        position: relative;
-        right: 2.5%;
-      }
+      bottom: 20%;
+    }
+
+    &.fade {
+      stroke-dasharray: 450;
+      stroke-dashoffset: 450;
+      animation: draw 1s linear forwards 0.5s;
     }
   }
+
+  span {
+    position: absolute;
+    transform: translateY(20px);
+    -webkit-text-stroke: 2px #333;
+    font-weight: 900;
+    font-size: 42px;
+    line-height: 140%;
+    letter-spacing: 0.04em;
+    color: rgba(51, 51, 51, 0);
+    text-transform: uppercase;
+    z-index: 3;
+    @include adaptiv-value(font-size, 42, 24, 1);
+
+    &:last-of-type {
+      -webkit-text-stroke: 0 #333;
+      color: #F79B0D;
+      font-weight: 800;
+      transform: translate(3px, 21px);
+      z-index: 2;
+    }
+  }
+
 }
 
 #first-q {
@@ -564,11 +628,41 @@ body {
     padding: 200px 0 0;
   }
 
+  .title-thiny {
+    path {
+      //first
+      &:nth-child(2) {
+        animation: animate-svg-fill-2 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s both;
+      }
+
+      //second
+      &:nth-child(3) {
+        animation: animate-svg-fill-2 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s both;
+      }
+
+      //third
+      &:nth-child(5) {
+        animation: animate-svg-fill-2 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.2s both;
+      }
+
+      //fourth
+      &:nth-child(4) {
+        animation: animate-svg-fill-2 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.3s both;
+      }
+
+      //fifth
+      &:nth-child(1) {
+        animation: animate-svg-fill-2 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.4s both;
+      }
+    }
+  }
+
   .bg {
     position: absolute;
     width: 100%;
     height: auto;
     top: 15%;
+    pointer-events: none;
     z-index: 1;
     @media (max-width: $md2 + px) {
       display: none;
@@ -582,6 +676,7 @@ body {
     bottom: 0;
     left: 0;
     z-index: 3;
+    pointer-events: none;
     @media (max-width: $md2 + px) {
       bottom: -1px;
     }
@@ -601,12 +696,13 @@ body {
 
   .questions__item {
     & > .arrow-down {
-      position: absolute;
-      bottom: -120px;
-      left: -15px;
-      height: 0;
       width: 0;
+      height: 0;
+      position: absolute;
+      top: 100%;
+      left: -25px;
       z-index: 4;
+      animation: down 2s ease-in infinite;
       @media (max-width: $md1 + px) {
         bottom: -180px;
       }
@@ -627,8 +723,11 @@ body {
       }
 
       & > .arrow-down {
-        height: 168px;
+        height: 250px;
         width: auto;
+        @media (max-width: $md1 + px) {
+          height: 190px;
+        }
       }
     }
 
@@ -694,6 +793,35 @@ body {
   background: #5FB4F7;
   padding: 50px 0 150px;
   z-index: 2;
+
+  .title-thiny {
+    path {
+      //first
+      &:nth-child(2) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s both;
+      }
+
+      //second
+      &:nth-child(3) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s both;
+      }
+
+      //third
+      &:nth-child(5) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.2s both;
+      }
+
+      //fourth
+      &:nth-child(4) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.3s both;
+      }
+
+      //fifth
+      &:nth-child(1) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.4s both;
+      }
+    }
+  }
 
   @media (max-width: $md3 + px) {
     padding: 0;
@@ -799,8 +927,37 @@ body {
 
 #third-q {
   background-color: #FFF7D1;
-  position: relative;
+  //position: relative;
   z-index: 2;
+
+  .title-thiny {
+    path {
+      //first
+      &:nth-child(2) {
+        animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s both;
+      }
+
+      //second
+      &:nth-child(3) {
+        animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s both;
+      }
+
+      //third
+      &:nth-child(5) {
+        animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.2s both;
+      }
+
+      //fourth
+      &:nth-child(4) {
+        animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.3s both;
+      }
+
+      //fifth
+      &:nth-child(1) {
+        animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.4s both;
+      }
+    }
+  }
 
   .questions__block {
     min-height: 780px;
@@ -844,10 +1001,10 @@ body {
         }
 
         & > .arrow {
-          width: 751px;
+          width: 641px;
           height: auto;
-          top: 70px;
-          left: -260px;
+          top: 60px;
+          left: -220px;
           opacity: 1;
           @media (max-width: $md1 + px) {
             width: 430px;
@@ -887,6 +1044,35 @@ body {
   padding: 50px 0 0;
   z-index: 2;
 
+  .title-thiny {
+    path {
+      //first
+      &:nth-child(2) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s both;
+      }
+
+      //second
+      &:nth-child(3) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s both;
+      }
+
+      //third
+      &:nth-child(5) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.2s both;
+      }
+
+      //fourth
+      &:nth-child(4) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.3s both;
+      }
+
+      //fifth
+      &:nth-child(1) {
+        animation: animate-svg-fill-3 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.4s both;
+      }
+    }
+  }
+
   .top {
     position: absolute;
     width: 100%;
@@ -924,6 +1110,7 @@ body {
       @media (min-width: $md1 + px) {
         z-index: 0;
       }
+
       &:before {
         background: linear-gradient(180deg, #FFCA60 7.5%, rgba(252, 166, 32, 0) 90%);
       }
@@ -931,6 +1118,7 @@ body {
 
     &.false {
       z-index: 1;
+
       &:before {
         background: linear-gradient(180deg, #FF9E06 27.76%, rgba(252, 185, 49, 0) 100%);
       }
@@ -1010,6 +1198,8 @@ body {
     min-height: 650px;
     height: 100%;
     width: 100%;
+    position: relative;
+    z-index: 4;
     @media (max-width: $md3 + px) {
       min-height: 650px;
       padding: 50px 0 90px;
@@ -1169,6 +1359,7 @@ body {
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
+      z-index: 2;
       @media (max-width: $md1 + px) {
         z-index: 4;
       }
@@ -1309,7 +1500,7 @@ body {
       span {
         color: $mainColor;
         font-size: 26px;
-        font-weight: 700;
+        font-weight: 400;
         line-height: 1.4;
         z-index: 3;
         @media (max-width: $md1 + px) {
@@ -1371,55 +1562,45 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
 
-  &__title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin-top: -100px;
-    width: 500px;
-    height: 265px;
-    padding-top: 29%; /* 16:9 Aspect Ratio */
-    z-index: 2;
-    @media (max-width: $md3 + px) {
-      width: 100%;
-      max-width: 450px;
-      margin-top: -120px;
-    }
-
-    img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: auto;
+    & > .challenge-title {
+      bottom: 80px;
+      @media (max-width: $md3 + px) {
+        bottom: 80px;
+      }
+      @media (max-width: $md4 + px) {
+        bottom: 50px;
+      }
     }
   }
 
   &__sun {
     position: absolute;
-    right: -260px;
-    top: -110px;
+    left: 70%;
+    top: -7%;
     margin: 1px;
     width: 70%;
     max-width: 773px;
-    @media (max-width: $md1 + px) {
-      right: -30%;
-    }
-    @media (max-width: $md2 + px) {
-      top: -200px;
-    }
     @media (max-width: $md3 + px) {
-      right: -23%;
-      top: -2%;
+      left: 53%;
+      top: 2%;
+    }
+    @media (max-width: $md4 + px) {
+      top: 1%;
+      left: 40%;
       max-width: 400px;
       width: 100%;
     }
-    @media (max-width: $md4 + px) {
-      right: -36%;
-      top: -3%;
+
+    img {
+      width: 100%;
+      height: auto;
+      position: relative;
+      z-index: 2;
+      transform: rotate(60deg);
+      @media (max-width: $md3 + px) {
+        z-index: 1;
+      }
     }
   }
 }
@@ -1427,7 +1608,7 @@ body {
 .old-score {
   width: 100%;
   position: relative;
-  z-index: 1;
+  z-index: 3;
   max-width: 780px;
   display: flex;
   justify-content: center;
@@ -1475,7 +1656,7 @@ body {
 
       & > div {
         img {
-          width: 94px;
+          width: 72px;
           height: auto;
           filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.31));
           @media (max-width: $md3 + px) {
@@ -1490,7 +1671,7 @@ body {
 
 .new-score {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 1420px;
   height: 390px;
   background: #F3BA52;
@@ -1525,9 +1706,39 @@ body {
       -webkit-text-stroke: 2px #333333;
     }
 
+    .title-thiny {
+      path {
+        //first
+        &:nth-child(2) {
+          animation: animate-svg-fill-5 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s both;
+        }
+
+        //second
+        &:nth-child(3) {
+          animation: animate-svg-fill-5 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s both;
+        }
+
+        //third
+        &:nth-child(5) {
+          animation: animate-svg-fill-5 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.2s both;
+        }
+
+        //fourth
+        &:nth-child(4) {
+          animation: animate-svg-fill-5 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.3s both;
+        }
+
+        //fifth
+        &:nth-child(1) {
+          animation: animate-svg-fill-5 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.4s both;
+        }
+
+      }
+    }
+
     svg {
       position: absolute;
-      width: 76px;
+      width: 66px;
       height: auto;
       top: -25px;
       @media (max-width: $md2 + px) {
@@ -1625,7 +1836,8 @@ body {
 
           img {
             filter: drop-shadow(0px 5px 15px rgba(106, 104, 75, 0.31));
-            width: 97px;
+            width: 80px;
+            height: auto;
             @media (max-width: 1423 + px) {
               width: 60px;
             }
@@ -1701,6 +1913,7 @@ body {
 }
 
 .share-btn {
+  z-index: 99;
   &.opened {
     box-shadow: 0 0 0 0 $secondaryBlue;
 
@@ -1727,7 +1940,7 @@ body {
   background-color: #F3BA52;
   border-radius: 24px;
   box-shadow: 0px 10px 10px rgba(51, 50, 48, 0.3);
-  z-index: 1;
+  z-index: 99;
 
   &:hover {
     cursor: auto;
@@ -1877,8 +2090,222 @@ body {
   }
 }
 
+.title-thiny {
+  path {
+    //first
+    &:nth-child(2) {
+      animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0s both;
+    }
+
+    //second
+    &:nth-child(3) {
+      animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.1s both;
+    }
+
+    //third
+    &:nth-child(5) {
+      animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.2s both;
+    }
+
+    //fourth
+    &:nth-child(4) {
+      animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.3s both;
+    }
+
+    //fifth
+    &:nth-child(1) {
+      animation: animate-svg-fill-1 0.8s infinite cubic-bezier(0.6, 0.04, 0.98, 0.335) 0.4s both;
+    }
+
+  }
+}
+
+.question {
+  &.wiggle {
+    &:after {
+      animation: wigglePlus infinite 2s ease-in;
+
+      &:hover {
+        animation-play-state: paused;
+      }
+    }
+
+    &:before {
+      animation: wiggleMinus infinite 2s ease-in;
+
+      &:hover {
+        animation: wiggleMinus 2s ease-in;
+      }
+    }
+
+    &:hover {
+      animation-play-state: paused;
+    }
+  }
+
+}
+
+$orangeThiny: #F79B0D;
+$beigeThiny: #FFEFB7;
+$whiteThiny: #FFEFB7;
+$yellowThiny: #F79B0D;
+
+@keyframes animate-svg-fill-1 {
+  0% {
+    transform: scale(1);
+    fill: rgb($orangeThiny, 0.8);
+  }
+
+  50% {
+    transform: scale(0.9);
+    fill: $orangeThiny;
+  }
+  100% {
+    transform: scale(1);
+    fill: rgb($orangeThiny, 0.8);
+  }
+}
+
+@keyframes animate-svg-fill-2 {
+  0% {
+    transform: scale(1);
+    fill: rgb($beigeThiny, 0.8);
+  }
+
+  50% {
+    transform: scale(0.9);
+    fill: $beigeThiny;
+  }
+  100% {
+    transform: scale(1);
+    fill: rgb($beigeThiny, 0.8);
+  }
+}
+
+@keyframes animate-svg-fill-3 {
+  0% {
+    transform: scale(1);
+    fill: rgb($whiteThiny, 0.8);
+  }
+
+  50% {
+    transform: scale(0.9);
+    fill: $whiteThiny;
+  }
+  100% {
+    transform: scale(1);
+    fill: rgb($whiteThiny, 0.8);
+  }
+}
+
+@keyframes animate-svg-fill-4 {
+  0% {
+    transform: scale(1);
+    fill: rgb($orangeThiny, 0.8);
+  }
+
+  50% {
+    transform: scale(0.9);
+    fill: $orangeThiny;
+  }
+  100% {
+    transform: scale(1);
+    fill: rgb($orangeThiny, 0.8);
+  }
+}
+
+@keyframes animate-svg-fill-5 {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes animate-svg-fill-4-1 {
+  0% {
+    transform: scale(1);
+    fill: rgb($orangeThiny, 0.8);
+  }
+
+  50% {
+    transform: scale(0.9);
+    fill: $orangeThiny;
+  }
+  100% {
+    transform: scale(1);
+    fill: rgb($orangeThiny, 0.8);
+  }
+}
+
 @keyframes draw {
   to {
     stroke-dashoffset: 0;
   }
+}
+
+@keyframes down {
+  0% {
+    transform: translateY(-40px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-40px);
+  }
+}
+
+@keyframes down1 {
+  0% {
+    transform: translateY(-20px);
+  }
+  50% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes wigglePlus {
+  0% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(-3deg);
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes wiggleMinus {
+  0% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(-3deg);
+  }
+}
+
+.reveal {
+  position: relative;
+  transform: translateY(150px);
+  opacity: 0;
+  transition: 1s all ease;
+  z-index: 3;
+}
+
+.reveal.fade {
+  transform: translateY(0);
+  opacity: 1;
 }
