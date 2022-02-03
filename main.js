@@ -5,19 +5,8 @@ function getById(id) {
     return document.getElementById(id);
 }
 
-//Finds y value of given object
-function findPos(obj) {
-    let currentTop = 0;
-    if (obj.offsetParent) {
-        do {
-            currentTop += obj.offsetTop;
-        } while (obj === obj.offsetParent);
-        return [currentTop];
-    }
-}
-
 // modern Chrome requires { passive: false } when adding event
-var supportsPassive = false;
+let supportsPassive = false;
 
 function preventDefault(e) {
     e.preventDefault();
@@ -38,8 +27,8 @@ try {
     }));
 } catch (e) {
 }
-var wheelOpt = supportsPassive ? {passive: false} : false;
-var wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
+let wheelOpt = supportsPassive ? {passive: false} : false;
+let wheelEvent = 'onwheel' in document.createElement('div') ? 'wheel' : 'mousewheel';
 
 // call this to Disable
 function disableScroll() {
@@ -65,8 +54,6 @@ function showButtons(element) {
     if (window.innerWidth < 768) {
         smoothScroll({
             preventUserScroll: 'false',
-            scrollEvents: ['scroll', 'mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'touchmove'],
-            duration: '400',
             block: '20%',
             toElement: document.getElementById(element)
         });
@@ -75,36 +62,31 @@ function showButtons(element) {
         setTimeout(() => {
             smoothScroll({
                 preventUserScroll: 'false',
-                scrollEvents: ['scroll', 'mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'touchmove'],
-                duration: '400',
+                easing: 'easeInOutQuad',
                 block: '-5%',
                 toElement: document.getElementById(nextStepId)
             });
         }, 4000)
         setTimeout(() => {
             enableScroll()
-        }, 5000)
+        }, 5500)
     } else {
         setTimeout(() => {
             smoothScroll({
                 preventUserScroll: 'false',
-                scrollEvents: ['scroll', 'mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'touchmove'],
-                duration: '400',
+                duration: '1500',
+                easing: 'easeInOutQuad',
                 block: '-10%',
                 toElement: document.getElementById(nextStepId)
             });
         }, 2500)
         setTimeout(() => {
             enableScroll()
-        }, 3200)
+        }, 4000)
     }
     startOverBlock.style.display = 'block';
     startOverFixed.style.display = 'flex';
     startOverBtn.style.display = 'flex';
-}
-
-function scrollToThe(elem) {
-    elem.scrollIntoView({block: "center", behavior: "smooth"});
 }
 
 function showNextStep(element) {
@@ -116,9 +98,8 @@ function showNextStep(element) {
     if (window.innerWidth < 768) {
         smoothScroll({
             preventUserScroll: 'false',
-            scrollEvents: ['scroll', 'mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'touchmove'],
-            duration: '400',
             block: '20%',
+            easing: 'easeInOutQuad',
             toElement: document.getElementById(element)
         });
     }
@@ -126,12 +107,12 @@ function showNextStep(element) {
         setTimeout(() => {
             smoothScroll({
                 preventUserScroll: 'false',
-                duration: '400',
-                scrollEvents: ['scroll', 'mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'touchmove'],
                 block: 'end',
+                duration: '1500',
+                easing: 'easeInOutQuad',
                 toElement: document.getElementById(nextStepId)
             });
-        }, 4000)
+        }, 4500)
         setTimeout(() => {
             enableScroll()
         }, 5000)
@@ -139,9 +120,9 @@ function showNextStep(element) {
         setTimeout(() => {
             smoothScroll({
                 preventUserScroll: 'false',
-                scrollEvents: ['scroll', 'mousedown', 'wheel', 'DOMMouseScroll', 'mousewheel', 'touchmove'],
-                duration: '400',
                 block: 'end',
+                duration: '1500',
+                easing: 'easeInOutQuad',
                 toElement: document.getElementById(nextStepId)
             });
         }, 2500)
@@ -183,7 +164,6 @@ function removeStyles() {
     startOverBlock.style.display = 'none';
 }
 
-
 let startOverBlock = document.querySelector('#final-q')
 let startOverFixed = document.querySelector('.start-over-fixed')
 let startOver = document.querySelector('.start-over-btn')
@@ -195,7 +175,6 @@ window.addEventListener('click', ({target}) => {
     const clickedOnClosedPopup = popup && !popup.classList.contains('opened');
     const clickedOnOpenedPopup = popup && popup.classList.contains('opened');
 
-
     popups.forEach(p => {
             if (target.closest('.share-btn') && popup.classList.contains('opened')) {
             } else {
@@ -203,35 +182,45 @@ window.addEventListener('click', ({target}) => {
             }
         }
     );
-    if (clickedOnOpenedPopup) popup.classList.add('opened');
+    if (clickedOnOpenedPopup) popup.classList.remove('opened');
     if (clickedOnClosedPopup) popup.classList.add('opened');
 });
 
-
 startOverFixed.addEventListener('click', () => {
     let startBlock = document.querySelector('.challenge-block');
-    scrollToThe(startBlock)
     smoothScroll({
         preventUserScroll: 'true',
-        duration: '500',
         block: 'end',
+        easing: 'easeInOutQuad',
         toElement: startBlock,
     });
 
     setTimeout(() => {
         removeStyles();
         removeBlocks();
-    }, 1000)
+    }, 2000)
 
 })
 
 startOver.addEventListener('click', () => {
     let startBlock = document.querySelector('.challenge-block');
-    scrollToThe(startBlock)
+    smoothScroll({
+        block: 'end',
+        easing: 'easeInOutQuad',
+        toElement: startBlock,
+    });
     setTimeout(() => {
         removeStyles();
         removeBlocks();
-    }, 1000)
+    }, 2000)
+})
+
+document.addEventListener('click', ({target}) => {
+    if (!target.classList.contains('question')) return;
+
+    const question = target.closest('.question');
+
+    if (target.classList.contains('wiggle')) target.classList.remove('wiggle');
 })
 
 document.addEventListener('click', ({target}) => {
@@ -254,7 +243,7 @@ document.addEventListener('click', ({target}) => {
     let check = container.querySelectorAll('.questions__item');
     let checkParent = target.parentNode;
 
-    for (i = 0; i < check.length; i++) {
+    for (let i = 0; i < check.length; i++) {
         if (checkParent.getAttribute('data-question') === 'false' && check[0].getAttribute('data-question') === 'false') {
         } else if (checkParent.getAttribute('data-question') === 'true' && check[1].getAttribute('data-question') === 'false') {
             check[1].classList.add('disable')
@@ -273,9 +262,10 @@ function removeStartOver() {
         }
     };
 }
+
 //animation code
 function reveal() {
-    var reveals = document.querySelectorAll(".reveal");
+    let reveals = document.querySelectorAll(".reveal");
 
     for (let i = 0; i < reveals.length; i++) {
         let windowHeight = window.innerHeight;
@@ -290,39 +280,21 @@ function reveal() {
     }
 }
 
-function questions() {
-    let questions = document.querySelectorAll(".question");
-    for (let m = 0; m < questions.length; m++) {
-        let windowHeight = window.innerHeight;
-        let elementTop = questions[m].getBoundingClientRect().top;
-        let elementVisible = 0;
-
-        questions[m].addEventListener('click', function () {
-            questions[m].classList.remove("wiggle");
-        });
-
-        if (elementTop < windowHeight - elementVisible) {
-            questions[m].classList.add("wiggle");
-        } else {
-            questions[m].classList.remove("wiggle");
-        }
-    }
-}
 
 function underline() {
     let underline = document.querySelectorAll(".underline");
-    for (let m = 0; m < underline.length; m++) {
+    for (let n = 0; n < underline.length; n++) {
         let windowHeight = window.innerHeight;
-        let elementTop = underline[m].getBoundingClientRect().top;
-        let elementVisible = 200;
+        let elementTop = underline[n].getBoundingClientRect().top;
+        let elementVisible = 0;
         if (elementTop < windowHeight - elementVisible) {
-            underline[m].classList.add("fade");
+            underline[n].classList.add("fade");
         } else {
-            underline[m].classList.remove("fade");
+            underline[n].classList.remove("fade");
         }
     }
 }
 
+
 window.addEventListener("scroll", reveal);
-window.addEventListener("scroll", questions);
 window.addEventListener("scroll", underline);

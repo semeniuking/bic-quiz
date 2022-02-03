@@ -130,7 +130,6 @@ body {
       top: 25%;
       right: 78.6%;
       z-index: 3;
-      filter: drop-shadow(0 19px 40px rgba(48, 39, 29, 0.27));
       @media (max-width: $maxWidthContainer + px) {
         top: 63%;
       }
@@ -303,6 +302,14 @@ body {
 
 }
 
+#gradient {
+  --color-stop: #333;
+  --color-bot: rgba(100, 99, 102, 0.5);
+  @media (max-width: $md4 + px) {
+    --color-bot: rgba(100, 99, 102, 0.2);
+  }
+}
+
 .challenge-block {
   padding: 0 0 18vh;
   margin: -80px 0 -34vh;
@@ -360,11 +367,14 @@ body {
       transform: scaleX(-1);
       top: calc(35% - 213.5px);
     }
+
+    path {
+      fill: url(#gradient) #000;
+    }
   }
 
   .pen {
     margin: 0 0 80px;
-    filter: drop-shadow(0px 4px 14px rgba(98, 95, 90, 0.59));
     max-width: 100%;
     height: auto;
     z-index: 4;
@@ -606,6 +616,9 @@ body {
     text-transform: uppercase;
     z-index: 3;
     @include adaptiv-value(font-size, 42, 24, 1);
+    @media (max-width: $md4 + px) {
+      -webkit-text-stroke: 1.5px #333;
+    }
 
     &:last-of-type {
       -webkit-text-stroke: 0 #333;
@@ -961,7 +974,13 @@ body {
 
   .questions__block {
     min-height: 780px;
+    @media (max-width: $md2 + px) {
+      min-height: 80vh;
+    }
     @media (max-width: $md3 + px) {
+      min-height: 780px;
+    }
+    @media (max-width: $md4 + px) {
       min-height: 650px;
     }
   }
@@ -1093,9 +1112,15 @@ body {
 
   .questions__block {
     min-height: 750px;
+    @media (max-width: $md2 + px) {
+      min-height: 80vh;
+    }
     @media (max-width: $md3 + px) {
-      min-height: 650px;
+      min-height: 750px;
       padding: 50px 0 160px;
+    }
+    @media (max-width: $md4 + px) {
+      min-height: 650px;
     }
   }
 
@@ -1200,6 +1225,9 @@ body {
     width: 100%;
     position: relative;
     z-index: 4;
+    @media (max-width: $md1 + px) {
+      min-height: 750px;
+    }
     @media (max-width: $md3 + px) {
       min-height: 650px;
       padding: 50px 0 90px;
@@ -1322,7 +1350,7 @@ body {
         height: auto;
         opacity: 1;
         font-weight: 400;
-        @media (max-width: $md3 + px) {
+        @media (max-width: $md2 + px) {
           z-index: 3;
         }
 
@@ -1532,6 +1560,9 @@ body {
       .image-block {
         margin: 0 0 10px;
         z-index: 3;
+        @media (max-width: $md3 + px) {
+          margin: 10px 0 20px;
+        }
 
         img {
           width: 47px;
@@ -1637,6 +1668,8 @@ body {
     @media (max-width: $md3 + px) {
       flex-direction: column;
       gap: 20px;
+      padding: 30px 0;
+      margin: -30px 0;
     }
 
     & > div {
@@ -1914,6 +1947,7 @@ body {
 
 .share-btn {
   z-index: 99;
+
   &.opened {
     box-shadow: 0 0 0 0 $secondaryBlue;
 
